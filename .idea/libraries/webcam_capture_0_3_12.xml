@@ -4,6 +4,7 @@
       <root url="jar://$PROJECT_DIR$/../Libs/webcam-capture-0.3.12-dist/libs/bridj-0.7.0.jar!/" />
       <root url="jar://$PROJECT_DIR$/../Libs/webcam-capture-0.3.12-dist/libs/slf4j-api-1.7.2.jar!/" />
       <root url="jar://$PROJECT_DIR$/../Libs/webcam-capture-0.3.13-20200330.202351-7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../Libs/webcam-capture-driver-raspberrypi-3d3fea0.jar!/" />
     </CLASSES>
     <JAVADOC>
       <root url="https://javadoc.io/doc/com.github.sarxos/webcam-capture/latest/overview-summary.html" />
