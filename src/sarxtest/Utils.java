@@ -5,10 +5,34 @@ public class Utils {
     private static final long MEGABYTE = 1024L * 1024L;
     private static Runtime runtime;
     public static String[] opacity;
+    public static String osName;
+    public static String osArch;
 
     public Utils(){
         runtime = Runtime.getRuntime();
         opacityArray();
+    }
+
+    /**
+     * Working on this to detect the system information (mostly OS and Architecture)
+     * Used mostly for camera handling purposes.
+     * @return String that gives the OS name, and Chip architecture (silicon vs Intel).
+     */
+    public String sysInfo(){
+
+        osName = System.getProperty("os.name");
+        osArch = System.getProperty("os.arch");
+
+        if(osName.toLowerCase().contains("mac") && osArch.toLowerCase().contains("aarch64")){
+            return "Mac Silicon";
+        } else if(osName.toLowerCase().contains("mac") && !osArch.toLowerCase().contains("aarch64")){
+            return "Mac Intel";
+        } else if (osName.toLowerCase().contains("linux") && osArch.toLowerCase().contains("aarch64")){
+            return "Linux / Pi";
+        } else if (osName.toLowerCase().contains("windows")){
+            return "Windows";
+        }
+        return "No Compatible OS";
     }
 
     /**
