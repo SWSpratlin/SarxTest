@@ -5,7 +5,6 @@ import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamException;
 import com.github.sarxos.webcam.WebcamResolution;
 import com.github.sarxos.webcam.ds.v4l4j.V4l4jDriver;
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.geom.AffineTransform;
@@ -14,53 +13,45 @@ import java.util.Scanner;
 public class CamHandler {
 
     public static String os;
-    public String confirm;
-    public static boolean confirmed = false;
     public static Webcam cam;
 
-    public CamHandler() {
-        Utils utils = new Utils();
-        os = utils.sysInfo();
+    public CamHandler(Utils u) {
+        os = u.sysInfo();
+        initDriver();
     }
 
 
     /**
      * Private method to Initiate the correct driver depending on the OS
-     *
-     * @param sys Operating system.
-     * @return String of the status of the drivers loading
      * @throws IllegalArgumentException No compatible OS
      */
-    private static String initDriver(String sys) throws IllegalArgumentException {
-        sys = os.toLowerCase();
+    private static void initDriver() throws IllegalArgumentException {
+        String sys = os.toLowerCase();
         if (sys.contains("silicon")) {
             Webcam.setDriver(new NativeDriver());
-            return "Silicon Driver loaded";
+            System.out.println("Silicon Driver loaded");
         } else if (sys.contains("pi")) {
             Webcam.setDriver(new V4l4jDriver());
-            return "Pi Driver loaded";
+            System.out.println("Pi Driver loaded");
         } else if (sys.contains("windows")) {
-            return "I'm still working on this one, sorry";
+            System.out.println("I'm still working on this one, sorry");
         } else throw new IllegalArgumentException("No Compatible OS to load Driver");
     }
 
     /**
      * public method to Initiate the Webcam. Makes you choose on Apple Silicon, loads default on Pi
      *
-     * @throws IllegalArgumentException
+     * @throws IllegalArgumentException Either there is no webcam, or no Compatible OS (Apple or Pi)
      */
     public static void initCam() throws IllegalArgumentException {
-        initDriver(os);
-        if (os.contains("silicon")) {
+        if (os.toLowerCase().contains("silicon")) {
             System.out.println(Webcam.getWebcams());
             Scanner scanner = new Scanner(System.in);
             System.out.println("Select Webcam");
             cam = Webcam.getWebcams().get(scanner.nextInt());
             cam.setViewSize(WebcamResolution.HD.getSize());
             cam.open();
-        }
-
-        if (os.contains("pi")) {
+        } else if (os.toLowerCase().contains("pi")) {
             if (!Webcam.getWebcams().isEmpty()) {
                 cam = Webcam.getDefault();
                 cam.setViewSize(WebcamResolution.HD.getSize());
@@ -71,13 +62,35 @@ public class CamHandler {
         }
     }
 
-    public static int[] getImage(Webcam c) throws WebcamException {
-        cam.getImage();
-        BufferedImage newImage = cam.getImage();
-        AffineTransform at = new AffineTransform();
-        at.concatenate(AffineTransform.getScaleInstance(-1, 1));
-        at.concatenate(AffineTransform.getTranslateInstance(0, -newImage.getHeight()));
-        Graphics2D g = newImage.createGraphics();
-        g.transform(at);
+    /**
+     * Reads the loaded Webcam and flips the image using AffineTransform.
+     * Still in testing
+     * @return int array holding the flipped Image data. Draw to PImage.
+     * @throws WebcamException If the webcam is null, this will not fire.
+     */
+    public int[] getMirroredImage(int[] output) throws WebcamException {
+        //Initialize the original image and output image
+        if(cam != null){
+            BufferedImage image = cam.getImage();
+            int w = image.getWidth();
+            int h = image.getHeight();
+
+            BufferedImage flipped = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+
+            AffineTransform at = new AffineTransform();
+            at.setToScale(-1, 1);
+            at.translate(-image.getWidth(), 0);
+
+            Graphics2D g = flipped.createGraphics();
+            g.drawImage(image, at, null);
+            g.dispose();
+
+            int rX = (int)(Math.random() * image.getWidth());
+            int rY = (int)(Math.random() * image.getHeight());
+//            System.out.print("flipped" + flipped.getRGB(rX, rY) + ", ");
+//            System.out.println("Regular" + image.getRGB(rX, rY));
+            flipped.getRGB(0,0,image.getWidth(), image.getHeight(), output, 0, image.getWidth());
+            return output;
+        } else throw new WebcamException("Webcam Cannot be Null");
     }
 }

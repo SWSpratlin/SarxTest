@@ -44,8 +44,8 @@ public class Utils {
     public void printMemory(int frameCount, int increment){
         if (frameCount % increment == 0) {
             long memory = runtime.totalMemory() - runtime.freeMemory();
-            System.out.println(" Used memory is bytes: " + memory);
-            System.out.println("Used memory is megabytes: " + bytesToMegabytes(memory));
+            System.out.println("Used memory in bytes: " + memory);
+            System.out.println("Used memory in megabytes: " + bytesToMegabytes(memory));
         }
     }
 
