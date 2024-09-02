@@ -12,5 +12,6 @@
     <orderEntry type="library" name="core" level="project" />
     <orderEntry type="library" name="AppleJavaExtensions-1.4" level="project" />
     <orderEntry type="library" name="github.sarxos.webcam.capture.driver.opencv" level="project" />
+    <orderEntry type="library" name="bytedeco.javacv.platform" level="project" />
   </component>
 </module>
