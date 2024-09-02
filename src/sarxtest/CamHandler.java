@@ -31,8 +31,12 @@ public class CamHandler {
             Webcam.setDriver(new NativeDriver());
             System.out.println("Silicon Driver loaded");
         } else if (sys.contains("pi")) {
-            Webcam.setDriver(new JavaCvDriver());
-            System.out.println("Pi Driver loaded");
+            try{
+                Webcam.setDriver(new JavaCvDriver());
+                System.out.println("Pi Driver loaded");
+            } catch (IllegalArgumentException e) {
+                System.err.println("Pi Driver could not be loaded");
+            }
         } else if (sys.contains("windows")) {
             System.out.println("I'm still working on this one, sorry");
         } else throw new IllegalArgumentException("No Compatible OS to load Driver");
@@ -61,7 +65,10 @@ public class CamHandler {
                 cam = Webcam.getDefault();
                 cam.setViewSize(WebcamResolution.HD.getSize());
                 cam.open();
-            } else throw new IllegalArgumentException("No Webcam Connected");
+            } else {
+                System.out.println("Pi Cam Not Loaded");
+                throw new IllegalArgumentException("No Webcam Connected");
+            }
         } else {
             throw new IllegalArgumentException("No Compatible OS to load Webcam");
         }
