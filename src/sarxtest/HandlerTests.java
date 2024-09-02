@@ -82,6 +82,7 @@ public class HandlerTests extends PApplet{
     }
 
     public static void main(String[] args) {
+        System.setProperty("java.library.path", "/home/admin/Documents/GitHub/SarxTest/lib/");
         String[] processingArgs = {"HandlerTests"};
         HandlerTests handlerTests = new HandlerTests();
         PApplet.runSketch(processingArgs, handlerTests);
