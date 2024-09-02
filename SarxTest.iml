@@ -10,5 +10,6 @@
     <orderEntry type="library" name="webcam-capture-0.3.12" level="project" />
     <orderEntry type="library" name="io.github.eduramiba.webcam.capture.driver.native" level="project" />
     <orderEntry type="library" name="core" level="project" />
+    <orderEntry type="library" name="AppleJavaExtensions-1.4" level="project" />
   </component>
 </module>

@@ -4,7 +4,7 @@ import com.github.eduramiba.webcamcapture.drivers.NativeDriver;
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamException;
 import com.github.sarxos.webcam.WebcamResolution;
-import com.github.sarxos.webcam.ds.v4l4j.V4l4jDriver;
+import com.github.sarxos.webcam.ds.gstreamer.GStreamerDriver;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.geom.AffineTransform;
@@ -31,7 +31,7 @@ public class CamHandler {
             Webcam.setDriver(new NativeDriver());
             System.out.println("Silicon Driver loaded");
         } else if (sys.contains("pi")) {
-            Webcam.setDriver(new V4l4jDriver());
+            Webcam.setDriver(new GStreamerDriver());
             System.out.println("Pi Driver loaded");
         } else if (sys.contains("windows")) {
             System.out.println("I'm still working on this one, sorry");
