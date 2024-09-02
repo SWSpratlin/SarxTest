@@ -53,10 +53,14 @@ public class CamHandler {
             cam.open();
         } else if (os.toLowerCase().contains("pi")) {
             if (!Webcam.getWebcams().isEmpty()) {
+                System.out.println(Webcam.getWebcams());
                 cam = Webcam.getDefault();
                 cam.setViewSize(WebcamResolution.HD.getSize());
                 cam.open();
-            } else throw new IllegalArgumentException("No Webcam Connected");
+            } else {
+                System.out.println("Pi Driver Not Loaded:");
+                throw new IllegalArgumentException("No Webcam Connected");
+            }
         } else {
             throw new IllegalArgumentException("No Compatible OS to load Webcam");
         }
