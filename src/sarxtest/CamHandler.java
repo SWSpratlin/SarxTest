@@ -4,7 +4,7 @@ import com.github.eduramiba.webcamcapture.drivers.NativeDriver;
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamException;
 import com.github.sarxos.webcam.WebcamResolution;
-import com.github.sarxos.webcam.ds.gstreamer.GStreamerDriver;
+import com.github.sarxos.webcam.ds.javacv.JavaCvDriver;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.geom.AffineTransform;
@@ -31,7 +31,7 @@ public class CamHandler {
             Webcam.setDriver(new NativeDriver());
             System.out.println("Silicon Driver loaded");
         } else if (sys.contains("pi")) {
-            Webcam.setDriver(new GStreamerDriver());
+            Webcam.setDriver(new JavaCvDriver());
             System.out.println("Pi Driver loaded");
         } else if (sys.contains("windows")) {
             System.out.println("I'm still working on this one, sorry");
@@ -45,7 +45,9 @@ public class CamHandler {
      */
     public static void initCam() throws IllegalArgumentException {
         if (os.toLowerCase().contains("silicon")) {
-            System.out.println(Webcam.getWebcams());
+            for (int i = 0; i < Webcam.getWebcams().size(); i++) {
+                System.out.println(i + ": " + Webcam.getWebcams().get(i).getName());
+            }
             Scanner scanner = new Scanner(System.in);
             System.out.println("Select Webcam");
             cam = Webcam.getWebcams().get(scanner.nextInt());
@@ -53,6 +55,9 @@ public class CamHandler {
             cam.open();
         } else if (os.toLowerCase().contains("pi")) {
             if (!Webcam.getWebcams().isEmpty()) {
+                for (int i = 0; i < Webcam.getWebcams().size(); i++) {
+                    System.out.println(i + ": " + Webcam.getWebcams().get(i).getName());
+                }
                 cam = Webcam.getDefault();
                 cam.setViewSize(WebcamResolution.HD.getSize());
                 cam.open();

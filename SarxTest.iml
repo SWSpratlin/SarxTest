@@ -11,5 +11,6 @@
     <orderEntry type="library" name="io.github.eduramiba.webcam.capture.driver.native" level="project" />
     <orderEntry type="library" name="core" level="project" />
     <orderEntry type="library" name="AppleJavaExtensions-1.4" level="project" />
+    <orderEntry type="library" name="github.sarxos.webcam.capture.driver.opencv" level="project" />
   </component>
 </module>
