@@ -24,6 +24,12 @@ To run, follow these steps based on Platform
 
 This runs the program on any Mac Silicon Machine. Pi and Windows is in development. 
 
+## Raspberry Pi (Debian Bookworm, Pi 5)
+
+Stay Tuned
+
+## TODO
+
 Features still working on
 
 - [ ] Fullscreen
