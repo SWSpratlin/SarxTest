@@ -1,4 +1,4 @@
-#The Rot (Working Title) Testing Grounds
+# The Rot (Working Title) Testing Grounds
 
 This is a testing Ground for "The Rot" (Working Title) using the Sarxos Webcam Capture library. This mostly works. 
 
@@ -12,7 +12,7 @@ Current Problems:
 
 To run, follow these steps based on Platform
 
-##Mac Silicon
+## Mac Silicon
 
 1) Install JRE or JDK Minimum Version 17. 22 is preferable, but the whole program works in 17 even though it was written in 22. Nothing breaks by downscaling. Have not tested 8, likely will not.
 2) Clone this repo
