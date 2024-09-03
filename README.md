@@ -38,6 +38,6 @@ Features still working on
 - [ ] JavaCPP Build within Pi Environment
 - [ ] Config Handler to run the first time on the machine to choose image files.
 
-ChangeLog: 
+## ChangeLog: 
 
 9/1 -  Switch to JavaCV Library. Still not fully functional.
